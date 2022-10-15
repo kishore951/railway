@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-view-all-trains',
@@ -7,11 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewAllTrainsComponent implements OnInit {
 
-  constructor() { }
-  name="Kishore"
-  read=()=>{
-    this.name="raju"
+  constructor( private myapi:ApiService) {
+    this.fetchData()
+   }
+
+  fetchData=()=>{
+    this.myapi.railway().subscribe(
+      (data)=>{
+        this.viewTrainlist=data
+      }
+    )
+    
   }
+viewTrainlist:any=[]
+  
 
   ngOnInit(): void {
   }
